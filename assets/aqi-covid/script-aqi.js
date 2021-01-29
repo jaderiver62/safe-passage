@@ -24,7 +24,7 @@ var getCurrentAirInfo = function() {
 
 var searchAQIResult = function(lat, lng) {
 
-    var url = "http://api.airvisual.com/v2/nearest_city?lat=" +
+    var url = "https://api.airvisual.com/v2/nearest_city?lat=" +
         lat + "&lon=" + lng + "&key=40f410cd-9102-4b7b-9aed-cdbbce23a985";
 
     fetch(url).then(function(response) {
