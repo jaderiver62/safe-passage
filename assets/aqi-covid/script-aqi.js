@@ -78,7 +78,7 @@ var searchAQIResult = function(lat, lng, isCurrent) {
             response.json().then(function(thisData) {
                 console.log(thisData);
                 if (isCurrent) {
-                    currentAQI.innerHTML = "<div>Current Air Quality Index: " + thisData.list[0].main.aqi + "</div>";
+                    currentAQI.innerHTML = "<div>Current Air Quality Index:    " + thisData.list[0].main.aqi + "</div>";
                 } else {
                     getPollution(thisData);
                 }
