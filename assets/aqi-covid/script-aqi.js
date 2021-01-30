@@ -7,7 +7,7 @@ var currentLocation = document.getElementById("current-location");
 var currentDate = document.getElementById("current-date");
 var pollutionData = document.getElementById("searched-aqi-data-summary");
 var aqiDetail = document.getElementById("searched-aqi-detail");
-var serachedWeather = document.getElementById("searched-weather-summary");
+var searchedWeather = document.getElementById("searched-weather-summary");
 
 
 var getCurrentInfo = function() {
@@ -42,7 +42,7 @@ var getWeather = function(cityName, isCurrent) {
     if (isCurrent) {
         var selection = currentWeather;
     } else {
-        var selection = serachedWeather;
+        var selection = searchedWeather;
     }
 
     var url = "https://api.weatherapi.com/v1/current.json?key=9254440986d34717a5525859213001&q=" + cityName;
