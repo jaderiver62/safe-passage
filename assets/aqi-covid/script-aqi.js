@@ -19,7 +19,7 @@ var getCurrentInfo = function() {
                 console.log(results);
                 lat = results.latitude;
                 lng = results.longitude;
-                var currentCityName = results.city + "," + results.region_name;
+                var currentCityName = results.city + ", " + results.region_name;
                 currentLocation.innerHTML = currentCityName;
                 currentDate.innerHTML = moment().format('L');
                 getCurrentWeather(currentCityName)
