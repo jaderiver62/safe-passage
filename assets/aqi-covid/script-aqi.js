@@ -21,7 +21,7 @@ var getCurrentAirInfo = function() {
                 console.log(results);
                 lat = results.latitude;
                 lng = results.longitude;
-                currentLocation.innerHTML = results.city + results.;
+                currentLocation.innerHTML = results.city + ", " + results.region_name;
                 getCurrentPollution(lat, lng);
 
             });
