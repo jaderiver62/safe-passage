@@ -21,7 +21,7 @@ var getCurrentInfo = function() {
                 console.log(results);
                 lat = results.latitude;
                 lng = results.longitude;
-                var currentCityName = results.city + "," + results.region_name;
+                var currentCityName = results.city + ", " + results.region_name;
                 currentLocation.innerHTML = currentCityName;
                 currentDate.innerHTML = moment().format('L');
                 var isCurrent = true;
@@ -66,7 +66,7 @@ var getPollution = function(dataResult) {
     pollutionData.innerHTML = "<div class='aqi-searched'>Air Quality Index: " +
         dataResult.list[0].main.aqi + "</div>";
     aqiDetail.innerHTML = "<div><div>Carbon Monoxide: " + dataResult.list[0].components.co +
-        "</div><div>Ammonia: " + dataResult.list[0].components.nh3 + "<h6>μg/m3</h6></div>" +
+        "<h6>μg/m3</h6></div><div>Ammonia: " + dataResult.list[0].components.nh3 + "<h6>μg/m3</h6></div>" +
         "<div>Nitrogen Monoxide: " + dataResult.list[0].components.no + "<h6>μg/m3</h6></div>" +
         "<div>Nitrogen Dioxide: " + dataResult.list[0].components.no2 + "<h6>μg/m3</h6></div>" +
         "<div>Ozone: " + dataResult.list[0].components.o3 + "<h6>μg/m3</h6></div>" +
@@ -87,7 +87,7 @@ var searchAQIResult = function(lat, lng, isCurrent) {
             response.json().then(function(thisData) {
                 console.log(thisData);
                 if (isCurrent) {
-                    currentAQI.innerHTML = "<div>Current Air Quality Index: " + thisData.list[0].main.aqi + "</div>";
+                    currentAQI.innerHTML = "<div>Current Air Quality Index:    " + thisData.list[0].main.aqi + "</div>";
                 } else {
                     getPollution(thisData);
                 }
