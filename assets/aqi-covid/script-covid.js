@@ -3,7 +3,7 @@ document.cookie = 'cookie1=value1; SameSite=Lax';
 document.cookie = 'cookie2=value2; SameSite=None; Secure';
 
 // API KEY: https://api.covidactnow.org/v2/county/{{FIPS}}.json?apiKey=445bc14aef9b4a7798f42f69d834218d
-var covidArray = [];
+
 
 var searchedLocation = document.getElementById("searched-location");
 // Function getCovidData(fips) is meant to be called by script-search.js to get Covid Data from a FIPS 5-digit code parameter
@@ -28,19 +28,13 @@ var getCovidData = function(fips) {
 
 }
 var getCovidDataObject = function(results) {
+
+    var coronaInfo = document.getElementById("searched-corona-data");
     var currentCases = results.actuals.cases;
     var currentDeaths = results.actuals.deaths;
     var currentRiskFactor = results.riskLevels.overall;
     var currentNewCases = results.actuals.newCases;
-    var covidDataObject = {
-        cases: currentCases,
-        deaths: currentDeaths,
-        riskFactor: currentRiskFactor,
-        newCases: currentNewCases
-    };
-    var coronaInfo = document.getElementById("searched-corona-data");
     coronaInfo.innerHTML = "<div>Number of Deaths: " + currentDeaths + "</div><div>Current Cases: " + currentCases + "</div>" + "</div><div>Current Risk Level: " + currentRiskFactor + "</div>" + "</div><div>New Cases: " + currentNewCases + "</div>";
-    covidArray.push(covidDataObject);
 
 }
 
@@ -48,3 +42,10 @@ var getCovidDataObject = function(results) {
 
 /* Test Code:
 getCovidData(49017);*/
+/*   
+    var covidDataObject = {
+        cases: currentCases,
+        deaths: currentDeaths,
+        riskFactor: currentRiskFactor,
+        newCases: currentNewCases
+    };*/
