@@ -16,7 +16,7 @@ var getCovidData = function(fips) {
     fetch(apiUrl).then(function(response) {
         if (response.ok) {
             response.json().then(function(dataResult) {
-                console.log(dataResult);
+
                 getCovidDataObject(dataResult);
 
             });
@@ -41,8 +41,10 @@ var getCovidDataObject = function(results) {
     var coronaInfo = document.getElementById("searched-corona-data");
     coronaInfo.innerHTML = "<div>Number of Deaths: " + currentDeaths + "</div><div>Current Cases: " + currentCases + "</div>" + "</div><div>Current Risk Level: " + currentRiskFactor + "</div>" + "</div><div>New Cases: " + currentNewCases + "</div>";
     covidArray.push(covidDataObject);
-    console.log(covidDataObject);
+
 }
+
+
 
 /* Test Code:
 getCovidData(49017);*/
