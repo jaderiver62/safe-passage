@@ -78,8 +78,9 @@ function GetLocationInfo(location) {
             // NOTE: Place All Functions That do Not Need City Level FIPS Below
             //
             // someFunction(someInput,anotherInput)
-            searchAQIResult(lat, lng);
+            var isCurrentBoolean = false;
             getCovidData(fips);
+            searchAQIResult(lat, lng, isCurrentBoolean);
             locationDemographics(fips, fips);
 
         });
