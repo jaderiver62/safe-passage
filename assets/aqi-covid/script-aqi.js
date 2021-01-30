@@ -57,7 +57,7 @@ var getPollution = function(dataResult) {
     pollutionData.innerHTML = "<div class='aqi-searched'>Air Quality Index: " +
         dataResult.list[0].main.aqi + "</div>";
     aqiDetail.innerHTML = "<div><div>Carbon Monoxide: " + dataResult.list[0].components.co +
-        "</div><div>Ammonia: " + dataResult.list[0].components.nh3 + "<h6>μg/m3</h6></div>" +
+        "<h6>μg/m3</h6></div><div>Ammonia: " + dataResult.list[0].components.nh3 + "<h6>μg/m3</h6></div>" +
         "<div>Nitrogen Monoxide: " + dataResult.list[0].components.no + "<h6>μg/m3</h6></div>" +
         "<div>Nitrogen Dioxide: " + dataResult.list[0].components.no2 + "<h6>μg/m3</h6></div>" +
         "<div>Ozone: " + dataResult.list[0].components.o3 + "<h6>μg/m3</h6></div>" +
