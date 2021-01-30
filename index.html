@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Safe Passage</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+
 </head>
 
 <body class="has-background-primary-dark">
@@ -35,18 +36,20 @@
                     <h2 class="title is-4">
                         <p id="current-location"></p>
                     </h2>
-                    <p id="date-time"></p>
+                    <p id="current-date"></p>
                 </div>
                 <br>
                 <ul>
                     <li>
-                        <p id="current-pollution"></p>
+                        <p id="weather-current"></p>
                     </li>
                     <li>
-                        <p id="air-quality-data"></p>
+                        <p id="air-quality-current"></p>
                     </li>
                     <li>Demographics</li>
-                    <li>Coronavirus Information</li>
+                    <li>
+                        <p id="corona-current"></p>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -64,11 +67,11 @@
                         <h3 class="title is-4">
                             <p id="searched-location"></p>
                         </h3>
-                        <p id="searched-pollution-data"></p>
-                        <p id="searched-corona-data"></p>
                         <p>Population Density: <span id="pop-density"></span></p>
                         <p>Median Age: <span id="median-age"></span></p>
                         <p>Poverty Rate: <span id="poverty-rate"></span></p>
+                        <p id="searched-aqi-data"></p>
+                        <p id="searched-corona-data"></p>
                     </div>
                 </div>
             </div>
