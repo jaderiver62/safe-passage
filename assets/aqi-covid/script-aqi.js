@@ -7,6 +7,8 @@ var currentLocation = document.getElementById("current-location");
 var currentDate = document.getElementById("current-date");
 var pollutionData = document.getElementById("searched-aqi-data-summary");
 var aqiDetail = document.getElementById("searched-aqi-detail");
+var serachedWeather = document.getElementById("searched-weather-summary");
+
 
 var getCurrentInfo = function() {
     var lat;
@@ -22,7 +24,8 @@ var getCurrentInfo = function() {
                 var currentCityName = results.city + "," + results.region_name;
                 currentLocation.innerHTML = currentCityName;
                 currentDate.innerHTML = moment().format('L');
-                getCurrentWeather(currentCityName)
+                var isCurrent = true;
+                getWeather(currentCityName, isCurrent);
                 var isCurrentBoolean = true;
                 searchAQIResult(lat, lng, isCurrentBoolean);
 
@@ -34,7 +37,13 @@ var getCurrentInfo = function() {
 
 };
 
-var getCurrentWeather = function(cityName) {
+var getWeather = function(cityName, isCurrent) {
+    var selection;
+    if (isCurrent) {
+        var selection = currentWeather;
+    } else {
+        var selection = serachedWeather;
+    }
 
     var url = "https://api.weatherapi.com/v1/current.json?key=9254440986d34717a5525859213001&q=" + cityName;
 
@@ -42,7 +51,7 @@ var getCurrentWeather = function(cityName) {
 
         if (response.ok) {
             response.json().then(function(thisData) {
-                currentWeather.innerHTML = "Temperature: " + thisData.current.temp_f + "&#8457 - " + thisData.current.condition.text;
+                selection.innerHTML = "Temperature: " + thisData.current.temp_f + "&#8457 - " + thisData.current.condition.text;
                 console.log(thisData);
 
             });
@@ -100,8 +109,10 @@ var getCityName = function(lat, lng) {
         if (response.ok) {
             response.json().then(function(data) {
                 console.log(data);
-                searchedLocation.innerHTML = data.results[0].components.city + ", " + data.results[0].components.state;
-
+                var cityName = data.results[0].components.city + ", " + data.results[0].components.state;
+                var isCurrent = false;
+                getWeather(cityName, isCurrent);
+                searchedLocation.innerHTML = cityName;
             });
         } else {
             alert("Error: " + response.statusText);
