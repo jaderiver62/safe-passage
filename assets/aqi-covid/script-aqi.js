@@ -2,28 +2,26 @@
 document.cookie = 'cookie1=value1; SameSite=Lax';
 document.cookie = 'cookie2=value2; SameSite=None; Secure';
 
-var currentLocation = document.getElementById("current-location");
 
 //http://api.openweathermap.org/data/2.5/air_pollution?lat="+lat+"&lon="+lng+"&appid=3812ea6836536b0581712ffd66f54fa5&units=imperial"
 //ipstack api -  7e46a79ccba2279e1788e8356c28018d example: http://api.ipstack.com/134.201.250.155?access_key=7e46a79ccba2279e1788e8356c28018d
 
 var aqiArray = [];
-
+var currentLocation = document.getElementById("current-location");
 
 var getCurrentAirInfo = function() {
     var lat;
     var lng;
 
-    var urlIP = "https://api.ipstack.com/check?access_key=7e46a79ccba2279e1788e8356c28018d";
+    var urlIP = "http://api.ipstack.com/check?access_key=7e46a79ccba2279e1788e8356c28018d";
     fetch(urlIP).then(function(response) {
         if (response.ok) {
             response.json().then(function(results) {
                 console.log(results);
                 lat = results.latitude;
                 lng = results.longitude;
-                currentLocation.innerHTML = results.city + ", " + results.region_name;
+                currentLocation.innerHTML = results.city;
                 getCurrentPollution(lat, lng);
-
             });
         } else {
             alert("Error: " + response.statusText);
@@ -32,13 +30,13 @@ var getCurrentAirInfo = function() {
 
 };
 var getCurrentPollution = function(latitude, longitude) {
-    var apiUrl = "https://api.openweathermap.org/data/2.5/air_pollution?lat=" + latitude + "&lon=" + longitude + "&appid=3812ea6836536b0581712ffd66f54fa5&units=imperial";
+    var apiUrl = "http://api.openweathermap.org/data/2.5/air_pollution?lat=" + latitude + "&lon=" + longitude + "&appid=3812ea6836536b0581712ffd66f54fa5&units=imperial";
     fetch(apiUrl).then(function(response) {
         if (response.ok) {
             response.json().then(function(dataResult) {
                 console.log(dataResult);
-
                 /*                createAPIObject(dataResult);*/
+
 
             });
         } else {
@@ -52,7 +50,7 @@ var getCurrentPollution = function(latitude, longitude) {
 
 var searchAQIResult = function(lat, lng) {
 
-    var url = "https://api.openweathermap.org/data/2.5/air_pollution?lat=" + lat + "&lon=" + lng + "&appid=3812ea6836536b0581712ffd66f54fa5&units=imperial";
+    var url = "http://api.openweathermap.org/data/2.5/air_pollution?lat=" + lat + "&lon=" + lng + "&appid=3812ea6836536b0581712ffd66f54fa5&units=imperial";
 
     fetch(url).then(function(response) {
 
