@@ -14,7 +14,7 @@ var getCurrentAirInfo = function() {
     var lat;
     var lng;
 
-    var urlIP = "http://api.ipstack.com/check?access_key=7e46a79ccba2279e1788e8356c28018d";
+    var urlIP = "https://api.ipstack.com/check?access_key=7e46a79ccba2279e1788e8356c28018d";
     fetch(urlIP).then(function(response) {
         if (response.ok) {
             response.json().then(function(results) {
@@ -32,7 +32,7 @@ var getCurrentAirInfo = function() {
 
 };
 var getCurrentPollution = function(latitude, longitude) {
-    var apiUrl = "http://api.openweathermap.org/data/2.5/air_pollution?lat=" + latitude + "&lon=" + longitude + "&appid=3812ea6836536b0581712ffd66f54fa5&units=imperial";
+    var apiUrl = "https://api.openweathermap.org/data/2.5/air_pollution?lat=" + latitude + "&lon=" + longitude + "&appid=3812ea6836536b0581712ffd66f54fa5&units=imperial";
     fetch(apiUrl).then(function(response) {
         if (response.ok) {
             response.json().then(function(dataResult) {
@@ -52,7 +52,7 @@ var getCurrentPollution = function(latitude, longitude) {
 
 var searchAQIResult = function(lat, lng) {
 
-    var url = "http://api.openweathermap.org/data/2.5/air_pollution?lat=" + lat + "&lon=" + lng + "&appid=3812ea6836536b0581712ffd66f54fa5&units=imperial";
+    var url = "https://api.openweathermap.org/data/2.5/air_pollution?lat=" + lat + "&lon=" + lng + "&appid=3812ea6836536b0581712ffd66f54fa5&units=imperial";
 
     fetch(url).then(function(response) {
 
