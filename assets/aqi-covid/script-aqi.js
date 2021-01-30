@@ -1,16 +1,44 @@
-// https://api.airvisual.com/v2/nearest_city?key=40f410cd-9102-4b7b-9aed-cdbbce23a985
-// 40f410cd-9102-4b7b-9aed-cdbbce23a985
+// Cookie settings for cross-site access
+document.cookie = 'cookie1=value1; SameSite=Lax';
+document.cookie = 'cookie2=value2; SameSite=None; Secure';
+
+var currentLocation = document.getElementById("current-location");
+
+//http://api.openweathermap.org/data/2.5/air_pollution?lat="+lat+"&lon="+lng+"&appid=3812ea6836536b0581712ffd66f54fa5&units=imperial"
+//ipstack api -  7e46a79ccba2279e1788e8356c28018d example: http://api.ipstack.com/134.201.250.155?access_key=7e46a79ccba2279e1788e8356c28018d
 
 var aqiArray = [];
 
 
 var getCurrentAirInfo = function() {
-    var apiUrl = "https://api.airvisual.com/v2/nearest_city?key=40f410cd-9102-4b7b-9aed-cdbbce23a985";
+    var lat;
+    var lng;
+
+    var urlIP = "http://api.ipstack.com/check?access_key=7e46a79ccba2279e1788e8356c28018d";
+    fetch(urlIP).then(function(response) {
+        if (response.ok) {
+            response.json().then(function(results) {
+                console.log(results);
+                lat = results.latitude;
+                lng = results.longitude;
+                currentLocation.innerHTML = results.city + results.;
+                getCurrentPollution(lat, lng);
+
+            });
+        } else {
+            alert("Error: " + response.statusText);
+        }
+    });
+
+};
+var getCurrentPollution = function(latitude, longitude) {
+    var apiUrl = "http://api.openweathermap.org/data/2.5/air_pollution?lat=" + latitude + "&lon=" + longitude + "&appid=3812ea6836536b0581712ffd66f54fa5&units=imperial";
     fetch(apiUrl).then(function(response) {
         if (response.ok) {
             response.json().then(function(dataResult) {
                 console.log(dataResult);
-                createAPIObject(dataResult, true);
+
+                /*                createAPIObject(dataResult);*/
 
             });
         } else {
@@ -24,36 +52,14 @@ var getCurrentAirInfo = function() {
 
 var searchAQIResult = function(lat, lng) {
 
-    var url = "https://api.airvisual.com/v2/nearest_city?lat=" +
-        lat + "&lon=" + lng + "&key=40f410cd-9102-4b7b-9aed-cdbbce23a985";
+    var url = "http://api.openweathermap.org/data/2.5/air_pollution?lat=" + lat + "&lon=" + lng + "&appid=3812ea6836536b0581712ffd66f54fa5&units=imperial";
 
     fetch(url).then(function(response) {
 
         if (response.ok) {
             response.json().then(function(thisData) {
                 console.log(thisData);
-                var cityFormatted = thisData.data.city + ", " + thisData.data.state + ", " + thisData.data.country;
-                var iconIdEl = thisData.data.current.weather.ic;
-                var link = "https://openweathermap.org/img/wn/" + iconIdEl + "@2x.png";
-                var imgCode = "<img src='" + link + "' alt='icon'>";
-                var aqi = thisData.data.current.pollution.aqius;
-                var pollutantName = getPollutant(thisData);
-                var temp = convertToF(thisData.data.current.weather.tp);
-                var myObj = {
-                    name: cityFormatted,
-                    aqi: aqi,
-                    pollutant: pollutantName,
-                    temperature: temp,
-                    img: imgCode // weather icon
-                };
-
-                console.log(myObj);
-                aqiArray.push(myObj);
-                console.log(aqiArray);
-
-                var searchedLocation = document.getElementById("searched-location");
-                searchedLocation.innerHTML = "<div>" + cityFormatted + "</div>" + "<br><div>" + temp + "&degF</div></div><div>" + imgCode + "</div>" + "<div>Air Quality Index: " + aqi + "</div><div>Primary Pollutant: </div>" + pollutantName;
-
+                /*                createAPIObject(thisData);*/
 
             });
         } else {
@@ -65,34 +71,13 @@ var searchAQIResult = function(lat, lng) {
 }
 
 var createAPIObject = function(results) {
-    // This will work with HTML and CSS to display the variables
-    var cityFormatted = results.data.city + ", " + results.data.state + ", " + results.data.country;
-    var iconIdEl = results.data.current.weather.ic;
-    var link = "https://openweathermap.org/img/wn/" + iconIdEl + "@2x.png";
-    var imgCode = "<img src='" + link + "' alt='icon'>";
-    var aqi = results.data.current.pollution.aqius;
-    var pollutantName = getPollutant(results);
-    var temp = convertToF(results.data.current.weather.tp);
-    var myObj = {
-        name: cityFormatted,
-        aqi: aqi,
-        pollutant: pollutantName,
-        temperature: temp,
-        img: imgCode // weather icon
-    };
 
-    console.log(myObj);
-    aqiArray.push(myObj);
-    console.log(aqiArray);
-    var currentLocation = document.getElementById("current-location");
-    currentLocation.innerHTML = cityFormatted;
-    var currentMoment = document.getElementById("date-time");
-    var myMoment = moment().format('L');
-    currentMoment.innerHTML = myMoment;
-    var currentWeather = document.getElementById("current-weather");
-    currentWeather.innerHTML = "<div>" + temp + "&degF</div><div>" + imgCode + "</div>";
-    var airQuality = document.getElementById("air-quality-data");
-    airQuality.innerHTML = "<div>Air Quality Index: " + aqi + "</div><div>Primary Pollutant: </div>" + pollutantName;
+
+    /*
+        var link = "https://openweathermap.org/img/wn/" + iconIdEl + "@2x.png";
+        var imgCode = "<img src='" + link + "' alt='icon'>";
+
+        console.log(aqiArray);*/
 };
 
 
@@ -104,6 +89,15 @@ function convertToF(celsius) {
 
 var getPollutant = function(result) {
     // Turn pollutant code into a human readable string
+    /*
+        components: co: 270.37
+        nh3: 0.07
+        no: 0
+        no2: 0.04
+        o3: 25.39
+        pm2_5: 1.36
+        pm10: 2.46
+        so2: 0.04*/
     var pollutantCode = result.data.current.pollution.mainus;
     var pollutantName = "";
     if (pollutantCode === "p2") {
