@@ -10,36 +10,36 @@
 
 </head>
 
-<body class="has-background-primary-dark">
-
-    <header class="box columns has-background-primary-dark has-text-white m-0 level">
-        <div class="column is-one-third">
-            <figure>
-                <img alt="city scape with street level view of vehicles" src="./assets/untitled.png">
-            </figure>
-        </div>
-        <div class="column is-two-third has-background-dark">
+<body>
+    <header class="box columns has-background-dark has-text-white m-0">
+        <img class="column is-one-quarter m-0" alt="city scape with street level view of vehicles" src="./assets/untitled.png">
+        <div class="column is-three-quarter has-background-dark mb-0">
             <div>
                 <h1 class="title is-1 has-text-white-ter mb-0">Safe Passage</h1>
                 <span class="subtitle is-5 has-text-warning">For the cautious modern traveler</span>
             </div>
             <br>
-            <div class="box">
+            <form class="box mb-0">
+                <label class="title is-5">Explore Location:</label>
+                <input id="form-entry" placeholder="Enter Location">
+                <button class="button is-warning is-small" id="form-submit">Search</button>
+            </form>
+            <div >
                 <h2>Custom Search Results: <span id="location-name"></span></h2>
             </div>
         </div>
     </header>
-    <section class="box columns has-background-primary-dark m-0">
-        <div class=" column is-one-third has-background-dark has-text-white">
-            <div class="box">
-                <div class="has-background-white-bis has-text-black">
-                    <h2 class="title is-4">
-                        <p id="current-location"></p>
+    <section class="box columns has-background-white-bis">
+        <div class="column is-one-third">
+            <div class="card">
+                <div class="card-header has-background-white-bis has-text-black mb-0">
+                    <h2 class="card-header-title title is-4 mb-0 is-flex-wrap-wrap">
+                        <p class="title is-4 mb-0" id="current-location"></p>
+                        <p class="title is-6" id="current-date"></p>
                     </h2>
-                    <p id="current-date"></p>
                 </div>
                 <br>
-                <ul>
+                <ul class="card-content">
                     <li>
                         <p id="current-weather"></p>
                     </li>
@@ -53,52 +53,55 @@
                 </ul>
             </div>
         </div>
-        <div class="column has-background-dark has-text-black">
+        <div class="column has-text-black ml-0">
             <div class="columns has-text-black">
                 <!--div for sat map of searched location-->
                 <div class="column is-one-quarter"></div>
                 <div class="column is-three-quarters">
-                    <div class="box">
-                        <h3 class="title is-4">Personal Rating: Fair
-                        </h3>
-
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-header-title title is-4">Personal Rating: Fair</h3>
+                        </div>
+                        <div class="card-content"></div>
                     </div>
-                    <div class="box">
-                        <h3 class="title is-4">
-                            <p id="searched-location"></p>
-                        </h3>
-
-                        <p>Population Density: <span id="pop-density"></span></p>
-                        <p>Median Age: <span id="median-age"></span></p>
-                        <p>Poverty Rate: <span id="poverty-rate"></span></p>
-
-                        <p id="searched-weather-summary"></p>
-                        <p id="searched-aqi-data-summary"></p>
-
-                        <p id="searched-corona-data"></p>
+                    <br>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-header-title is-4" id="searched-location"></h3>
+                        </div>
+                        <div class="card-content">
+                            <p>Population Density: <span id="pop-density"></span></p>
+                            <p>Median Age: <span id="median-age"></span></p>
+                            <p>Poverty Rate: <span id="poverty-rate"></span></p>
+    
+                            <p id="searched-weather-summary"></p>
+                            <p id="searched-aqi-data-summary"></p>
+    
+                            <p id="searched-corona-data"></p>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="columns">
-                <div class="column is-half">
-                    <h3 class="title is-4 has-text-white">Air Quality Detailed</h3>
-                    <p id="searched-aqi-detail"></p>
+                <div class="card column is-half">
+                    <div class="card-header">
+                        <h3 class="card-header-title title is-4">Air Quality Detailed</h3>
+                    </div>
+                    <p class="card-content" id="searched-aqi-detail"></p>
                 </div>
-                <div class="column is-half">
-                    <h3 class="title is-4 has-text-white">Risk Analysis</h3>
+                <div class="card column is-half">
+                    <div class="card-header">
+                        <h3 class="card-header-title title is-4">Risk Analysis</h3>
+                    </div>
+                    <div class="card-content"></div>
                 </div>
-            </div>
-            <div class="box" id="location-hist">
-                <h3 class="title is-4">Saved Assessment History</h3>
             </div>
         </div>
     </section>
     <section class="box has-background-dark has-text-white px-5 m-0">
-        <form class="box">
-            <label class="title is-4">Explore Location:</label>
-            <input id="form-entry" placehold="Enter Location.">
-            <button id="form-submit">Search</button>
-        </form>
+        <div class="box" id="location-hist">
+            <h3 class="title is-4">Saved Assessment History</h3>
+        </div>
     </section>
     <script src="assets\aqi-covid\script-covid.js"></script>
     <script src="assets\aqi-covid\script-aqi.js"></script>
