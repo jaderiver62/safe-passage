@@ -26,8 +26,7 @@ var getCurrentInfo = function() {
                 currentDate.innerHTML = moment().format('L');
                 var isCurrent = true;
                 getWeather(currentCityName, isCurrent);
-                var isCurrentBoolean = true;
-                searchAQIResult(lat, lng, isCurrentBoolean);
+                searchAQIResult(lat, lng, isCurrent);
 
             });
         } else {
