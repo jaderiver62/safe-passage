@@ -14,7 +14,7 @@ var getCurrentInfo = function() {
     var lat;
     var lng;
 
-    var urlIP = "http://api.ipstack.com/check?access_key=7e46a79ccba2279e1788e8356c28018d";
+    var urlIP = "https://api.ipstack.com/check?access_key=7e46a79ccba2279e1788e8356c28018d";
     fetch(urlIP).then(function(response) {
         if (response.ok) {
             response.json().then(function(results) {
