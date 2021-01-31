@@ -79,7 +79,7 @@ var getPollution = function(dataResult) {
 var searchAQIResult = function(lat, lng, isCurrent) {
     getCityName(lat, lng);
 
-    var url = "http://api.openweathermap.org/data/2.5/air_pollution?lat=" + lat + "&lon=" + lng + "&appid=3812ea6836536b0581712ffd66f54fa5&units=imperial";
+    var url = "https://api.openweathermap.org/data/2.5/air_pollution?lat=" + lat + "&lon=" + lng + "&appid=3812ea6836536b0581712ffd66f54fa5&units=imperial";
 
     fetch(url).then(function(response) {
 
