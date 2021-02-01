@@ -11,6 +11,7 @@ var currentDate = document.getElementById("current-date");
 var pollutionData = document.getElementById("searched-aqi-data-summary");
 var aqiDetail = document.getElementById("searched-aqi-detail");
 var searchedWeather = document.getElementById("searched-weather-summary");
+var searchedLocation = document.getElementById("searched-location");
 
 var getCurrentInfo = function() {
     var lat;
