@@ -41,6 +41,8 @@ function getLocationInfo(location) {
                     locationType = "state";
                     stateName = data[i].address.state;
                     fullName = stateName;
+                    // alert("States are not yet supported. Please search city or county.")
+                    return reject();
                     break;
                 }
             }
@@ -65,7 +67,6 @@ function getLocationInfo(location) {
                         }
                     }
                     if (!data[i].address.county) {
-                        // alert("Could not find location");
                         return reject();
                     }
                 }
@@ -115,7 +116,6 @@ function getLocationInfo(location) {
             return [cityName, countyName, stateName, fullName, lat, lon, cityFips, await fips];
         }
         else {
-            // alert("Could not find location");
             return reject();
         }
         
@@ -144,7 +144,7 @@ async function popMetrics(location) {
         locationDemographics(cityFips, fips);
 
     }, function() {
-        alert("Could not find location")
+        alert("Could not find location. Please search another city or county.")
     });
 }
 
@@ -178,7 +178,7 @@ function loadHistory() {
             locationEl.innerHTML = savedLocations[i];
             historyEl.appendChild(locationEl);
         }
-        if (locationNameEl.innerHTML == "") {
+        if (locationNameEl.innerHTML == "" || locationNameEl.innerHTML != savedLocations[0]) {
             popMetrics(savedLocations[0]);
         }
     }
