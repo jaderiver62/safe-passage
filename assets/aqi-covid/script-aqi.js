@@ -78,7 +78,7 @@ var getPollution = function(dataResult, risk) {
     var units = "μg/m3";
 
     aqiDetail.innerHTML = "<div><div>Carbon Monoxide: " + dataResult.list[0].components.co +
-        +units + "</div><div>Ammonia: " + dataResult.list[0].components.nh3 + " " + units + "</div>" +
+        +" " + units + "</div><div>Ammonia: " + dataResult.list[0].components.nh3 + " " + units + "</div>" +
         "<div>Nitrogen Monoxide: " + dataResult.list[0].components.no + " " + units + "</div>" +
         "<div>Nitrogen Dioxide: " + dataResult.list[0].components.no2 + " " + units + "</div>" +
         "<div>Ozone: " + dataResult.list[0].components.o3 + " " + units + "</div>" +
