@@ -185,9 +185,7 @@ function saveHistory(location) {
 function loadHistory() {
     savedLocations = JSON.parse(localStorage.getItem("saved-locations"));
     if (savedLocations) {
-        while (historyEl.childElementCount > 1) {
-            historyEl.removeChild(historyEl.lastElementChild);
-        }
+        historyEl.innerHTML = "";
         for (var i = 0; i < savedLocations.length; i++) {
             var locationEl = document.createElement("button");
             locationEl.setAttribute("class", "location-btn");
