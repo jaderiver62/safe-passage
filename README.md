@@ -7,7 +7,6 @@ Users will find current COVID-19 data for their current location and intended de
 
 ![Website](https://github.com/jaderiver62/safe-passage/blob/main/assets/css/screenshot%20(3).png?raw=true)
 
-![Saved History](assets/css/history.png) 
 
 ## Built With
 * HTML
