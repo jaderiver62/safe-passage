@@ -73,8 +73,8 @@ var getPollution = function(dataResult, risk) {
         "<div>Nitrogen Monoxide: " + dataResult.list[0].components.no + "<h6>μg/m3</h6></div>" +
         "<div>Nitrogen Dioxide: " + dataResult.list[0].components.no2 + "<h6>μg/m3</h6></div>" +
         "<div>Ozone: " + dataResult.list[0].components.o3 + "<h6>μg/m3</h6></div>" +
-        "<div>Fine particles matter: " + dataResult.list[0].components.pm2_5 + "<h6>μg/m3</h6></div>" +
-        "<div>Course particles matter: " + dataResult.list[0].components.pm10 + "<h6>μg/m3</h6></div>" +
+        "<div>PM2.5 - Fine particles matter: " + dataResult.list[0].components.pm2_5 + "<h6>μg/m3</h6></div>" +
+        "<div>PM10 - Course particles matter: " + dataResult.list[0].components.pm10 + "<h6>μg/m3</h6></div>" +
         "<div>Sulphur Dioxide: " + dataResult.list[0].components.so2 + "<h6>μg/m3</h6></div></div>";
 
 };
