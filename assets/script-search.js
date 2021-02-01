@@ -4,21 +4,6 @@ const historyEl = document.getElementById('location-hist');
 const locationNameEl = document.getElementById('location-name');
 var savedLocations = [];
 
-function getCityFips(locationFullName) {
-    // Convert Accented Characters to Standard Characters
-    var plainFullName = locationFullName.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-
-    // Convert Address to City or County FIPS ID
-    return fetch('https://datausa.io/api/searchLegacy/?q=' + plainFullName)
-        .then(response => response.json())
-        .then(function(data) {
-            var fips = data.results[0].id;
-            usFips = fips.split("US")[1];
-
-            return usFips;
-        });
-};
-
 function getLocationInfo(location) {
     var locationSplit = location.split(",");
     var countyFlag = 0;
@@ -110,7 +95,7 @@ function getLocationInfo(location) {
             });
             return [cityName, countyName, stateName, fullName, lat, lon, await cityFips, await fips];
         }
-        else if (locationType = "county") {
+        else if (locationType == "county") {
             fips = await fetch('https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/Places_CouSub_ConCity_SubMCD/MapServer/1/query?geometryType=esriGeometryPoint&geometry=' + lon + ',' + lat + '&inSR=4326&returnGeometry=false&outFields=*&f=json')
             .then(response => response.json())
             .then(function(data) {
@@ -202,7 +187,6 @@ function loadHistory() {
 loadHistory()
 
 historyEl.addEventListener("click", function(e) {
-    // console.log(e);
     try {
         var location = document.querySelector('[location-num="' + e.target.getAttribute("location-num") + '"]').innerHTML;
         popMetrics(location);
