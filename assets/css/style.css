@@ -1,4 +1,3 @@
-
 header {
     background-image: url("../css/boat.png");
     height: 300px;
@@ -9,6 +8,7 @@ body {
     font-weight: bold;
 }
 
+/* color index for risk*/
 .low-risk {
     background-color: rgb(115, 165, 115);
     color: white;
