@@ -18,6 +18,7 @@
                 <span class="subtitle is-5 has-text-warning">For the cautious modern traveler</span>
             </div>
             <br>
+            <!--search bar-->
             <form class="column is-one-third box mb-0">
                 <label class="title is-5">Explore Location:</label>
                 <input id="form-entry" placeholder="Enter Location">
@@ -29,6 +30,7 @@
         </div>
     </header>
     <section class="box columns has-background-white-bis">
+        <!--column 1 color index-->
         <div class="column is-one-third">
             <div class="card">
                 <div class="card-header has-text-black">
@@ -45,7 +47,9 @@
         </div>
         <div class="column has-text-black ml-0">
             <div class="columns has-text-black">
+                <!--column 2-->
                 <div class="column is-one-half">
+                    <!--data for current location-->
                     <div class="card">
                         <div class="card-header has-text-black mb-0">
                             <h2 class="card-header-title title is-4 mb-0 is-flex-direction-column is-align-items-flex-start">
@@ -66,6 +70,7 @@
                         </ul>
                     </div>
                     <br>
+                    <!--data for user's searched location-->
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-header-title title is-4" id="searched-location"></h3>
@@ -74,15 +79,14 @@
                             <p id="pop-density"></p>
                             <p id="median-age"></p>
                             <p id="poverty-rate"></p>
-
                             <p id="searched-weather-summary"></p>
                             <p id="searched-aqi-data-summary"></p>
-
                             <p id="searched-corona-data"></p>
                         </div>
                     </div>
                 </div>
             </div>
+            <!--detailed air quality-->
             <div class="columns">
                 <div class="column is-one-half">
                     <div class="card">
@@ -92,11 +96,10 @@
                         <p class="card-content" id="searched-aqi-detail"></p>
                     </div>
                 </div>
-                <!--div for sat map of searched location-->
-                <div></div>
             </div>
         </div>
     </section>
+    <!--saved history-->
     <section class="box has-background-dark has-text-white px-5 m-0">
         <div class="box">
             <h3 class="title is-4">Saved Assessment History:</h3>
