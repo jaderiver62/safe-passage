@@ -24,8 +24,9 @@ var getCovidData = function(fips) {
                 var currentDeaths = dataResult.actuals.deaths;
                 var currentRiskFactor = dataResult.riskLevels.overall;
                 var currentNewCases = dataResult.actuals.newCases;
-                covidData.innerHTML = "<div id='cases-population'>Number of Cases/Population: " + currentCases + "/" + population + "</div><div id='fatalities'>Total Fatalities: " + currentDeaths + "</div><div id='risk-level'>Overall Covid Risk Rating: " + currentRiskFactor + "</div>" + "</div><div id='new-cases'>Daily New Cases: " + currentNewCases + " per 100k population</div>";
-                riskCasesPopulation(currentCases, population);
+                var percentage = Math.floor((currentCases / population) * 100);
+                covidData.innerHTML = "<div id='cases-population'>Number of Cases/Population: " + percentage + "%<br>" + currentCases + " cases out of " + population + "people</div><div id='fatalities'>Total Fatalities: " + currentDeaths + "</div><div id='risk-level'>Overall Covid Risk Rating: " + currentRiskFactor + "</div>" + "</div><div id='new-cases'>Daily New Cases: " + currentNewCases + " per 100k population</div>";
+                riskCasesPopulation(percentage);
                 riskFatality(currentDeaths, population);
                 riskFactor(currentRiskFactor);
                 riskNewCases(currentNewCases);
@@ -37,9 +38,9 @@ var getCovidData = function(fips) {
     });
 
 };
-var riskCasesPopulation = function(cases, population) {
+var riskCasesPopulation = function(percentage) {
     var casesEl = document.getElementById("cases-population");
-    var percentage = (Math.trunc((cases / population) * 100));
+
     if (percentage <= 33) {
         casesEl.className = "low-risk";
     } else if (percentage <= 66) {
@@ -50,7 +51,7 @@ var riskCasesPopulation = function(cases, population) {
 };
 var riskFatality = function(deaths, population) {
     var fatalityEl = document.getElementById("fatalities");
-    var percentage = (Math.trunc((deaths / population) * 100));
+    var percentage = Math.floor((deaths / population) * 100);
     if (percentage <= 33) {
         fatalityEl.className = "low-risk";
     } else if (percentage <= 66) {
