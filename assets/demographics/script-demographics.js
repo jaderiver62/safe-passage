@@ -14,9 +14,9 @@ function demographicRisk(val, lowRisk, highRisk) {
     if (val < lowRisk) {
         return "low-risk";
     } else if (val > highRisk) {
-        return "med-risk";
-    } else {
         return "high-risk";
+    } else {
+        return "medium-risk";
     }
 }
 
@@ -31,8 +31,10 @@ function locationDemographics(cityFips, fips) {
             .then(function(data) {
                 popDensity = data[data.length - 1][3];
                 var risk = demographicRisk(popDensity, lowRiskDensity, highRiskDensity);
+                console.log(popDensity);
+                console.log("POP: " + risk);
                 popDensityEl.setAttribute("class", risk);
-                popDensityEl.innerHTML = Math.round(popDensity) + " per sq. mi.";
+                popDensityEl.innerHTML = "Population Density: " + Math.round(popDensity) + " per sq. mi.";
             });
 
         fetch('https://api.census.gov/data/2019/acs/acsse?get=NAME,K200103_001E&for=place:' + placeFips + '&in=state:' + stateFips)
@@ -40,8 +42,10 @@ function locationDemographics(cityFips, fips) {
             .then(function(data) {
                 medAge = data[data.length - 1][1];
                 var risk = demographicRisk(medAge, lowRiskAge, highRiskAge);
+                console.log(medAge);
+                console.log("AGE: " + risk);
                 medAgeEl.setAttribute("class", risk);
-                medAgeEl.innerHTML = Math.round(medAge);
+                medAgeEl.innerHTML = "Median Age: " + Math.round(medAge);
             });
 
         fetch('https://api.census.gov/data/timeseries/poverty/saipe?get=COUNTY,YEAR,SAEPOVRTALL_PT,SAEPOVALL_PT,SAEMHI_PT,NAME&for=county:' + countyFips + '&in=state:' + stateFips)
@@ -49,8 +53,10 @@ function locationDemographics(cityFips, fips) {
             .then(function(data) {
                 povRate = data[data.length - 1][2];
                 var risk = demographicRisk(povRate, lowRiskPov, highRiskPov);
+                console.log(povRate);
+                console.log("POV: " + risk);
                 povRateEl.setAttribute("class", risk);
-                povRateEl.innerHTML = Math.round(povRate) + "%";
+                povRateEl.innerHTML = "Poverty Rate: " + Math.round(povRate) + "%";
             });
     } else {
         // County Level FIPS
@@ -63,7 +69,7 @@ function locationDemographics(cityFips, fips) {
                     popDensity = data[data.length - 1][3];
                     var risk = demographicRisk(popDensity, lowRiskDensity, highRiskDensity);
                     popDensityEl.setAttribute("class", risk);
-                    popDensityEl.innerHTML = Math.round(popDensity) + " per sq. mi.";
+                    popDensityEl.innerHTML = "Population Density: " + Math.round(popDensity) + " per sq. mi.";
                 });
 
             fetch('https://api.census.gov/data/2019/acs/acsse?get=NAME,K200103_001E&for=county:' + countyFips + '&in=state:' + stateFips)
@@ -72,7 +78,7 @@ function locationDemographics(cityFips, fips) {
                     medAge = data[data.length - 1][1];
                     var risk = demographicRisk(medAge, lowRiskAge, highRiskAge);
                     medAgeEl.setAttribute("class", risk);
-                    medAgeEl.innerHTML = Math.round(medAge);
+                    medAgeEl.innerHTML = "Median Age: " + Math.round(medAge);
                 });
 
             fetch('https://api.census.gov/data/timeseries/poverty/saipe?get=COUNTY,YEAR,SAEPOVRTALL_PT,SAEPOVALL_PT,SAEMHI_PT,NAME&for=county:' + countyFips + '&in=state:' + stateFips)
@@ -81,7 +87,7 @@ function locationDemographics(cityFips, fips) {
                     povRate = data[data.length - 1][2];
                     var risk = demographicRisk(povRate, lowRiskPov, highRiskPov);
                     povRateEl.setAttribute("class", risk);
-                    povRateEl.innerHTML = Math.round(povRate) + "%";
+                    povRateEl.innerHTML = "Poverty Rate: " + Math.round(povRate) + "%";
                 });
         }
         // State Level FIPS
@@ -92,7 +98,7 @@ function locationDemographics(cityFips, fips) {
                     popDensity = data[data.length - 1][3];
                     var risk = demographicRisk(popDensity, lowRiskDensity, highRiskDensity);
                     popDensityEl.setAttribute("class", risk);
-                    popDensityEl.innerHTML = Math.round(popDensity) + " per sq. mi.";
+                    popDensityEl.innerHTML = "Population Density: " + Math.round(popDensity) + " per sq. mi.";
                 });
 
             fetch('https://api.census.gov/data/2019/acs/acsse?get=NAME,K200103_001E&for=state:' + fips)
@@ -101,7 +107,7 @@ function locationDemographics(cityFips, fips) {
                     medAge = data[data.length - 1][1];
                     var risk = demographicRisk(medAge, lowRiskAge, highRiskAge);
                     medAgeEl.setAttribute("class", risk);
-                    medAgeEl.innerHTML = Math.round(medAge);
+                    medAgeEl.innerHTML = "Median Age: " + Math.round(medAge);
                 });
 
             fetch('https://api.census.gov/data/timeseries/poverty/saipe?get=COUNTY,YEAR,SAEPOVRTALL_PT,SAEPOVALL_PT,SAEMHI_PT,NAME&for=state:' + fips)
@@ -110,7 +116,7 @@ function locationDemographics(cityFips, fips) {
                     povRate = data[data.length - 1][2];
                     var risk = demographicRisk(povRate, lowRiskPov, highRiskPov);
                     povRateEl.setAttribute("class", risk);
-                    povRateEl.innerHTML = Math.round(povRate) + "%";
+                    povRateEl.innerHTML = "Poverty Rate: " + Math.round(povRate) + "%";
                 });
         }
     }
