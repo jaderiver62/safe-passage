@@ -64,10 +64,10 @@ var getWeather = function(cityName, isCurrent) {
 
 };
 var getPollution = function(dataResult, risk) {
-    pollutionData.innerHTML = "<div class='aqi-searched'>Air Quality Index: " +
+    pollutionData.innerHTML = "<div>Air Quality Index: " +
         dataResult.list[0].main.aqi + "</div>";
-    aqiDetail.className = risk;
-    aqiDetail.innerHTML = "<div><div>Carbon Monoxide: " + dataResult.list[0].components.co +
+    pollutionData.className = risk;
+    pollutionData.innerHTML = "<div><div>Carbon Monoxide: " + dataResult.list[0].components.co +
         "<h6>μg/m3</h6></div><div>Ammonia: " + dataResult.list[0].components.nh3 + "<h6>μg/m3</h6></div>" +
         "<div>Nitrogen Monoxide: " + dataResult.list[0].components.no + "<h6>μg/m3</h6></div>" +
         "<div>Nitrogen Dioxide: " + dataResult.list[0].components.no2 + "<h6>μg/m3</h6></div>" +
