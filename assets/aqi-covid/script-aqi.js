@@ -1,6 +1,9 @@
 document.cookie = 'cookie1=value1; SameSite=Lax';
 document.cookie = 'cookie2=value2; SameSite=None; Secure';
 
+// Source for Risk Assessment: https://www.airnow.gov/aqi/aqi-basics/
+// "low-risk", "medium-risk", or "high-risk"
+
 var currentAQI = document.getElementById("current-air-quality");
 var currentWeather = document.getElementById("current-weather");
 var currentLocation = document.getElementById("current-location");
@@ -8,7 +11,6 @@ var currentDate = document.getElementById("current-date");
 var pollutionData = document.getElementById("searched-aqi-data-summary");
 var aqiDetail = document.getElementById("searched-aqi-detail");
 var searchedWeather = document.getElementById("searched-weather-summary");
-
 
 var getCurrentInfo = function() {
     var lat;
@@ -61,9 +63,10 @@ var getWeather = function(cityName, isCurrent) {
     });
 
 };
-var getPollution = function(dataResult) {
+var getPollution = function(dataResult, risk) {
     pollutionData.innerHTML = "<div class='aqi-searched'>Air Quality Index: " +
         dataResult.list[0].main.aqi + "</div>";
+    aqiDetail.className = risk;
     aqiDetail.innerHTML = "<div><div>Carbon Monoxide: " + dataResult.list[0].components.co +
         "<h6>μg/m3</h6></div><div>Ammonia: " + dataResult.list[0].components.nh3 + "<h6>μg/m3</h6></div>" +
         "<div>Nitrogen Monoxide: " + dataResult.list[0].components.no + "<h6>μg/m3</h6></div>" +
@@ -84,11 +87,14 @@ var searchAQIResult = function(lat, lng, isCurrent) {
 
         if (response.ok) {
             response.json().then(function(thisData) {
-                console.log(thisData);
+                var thisAQI = thisData.list[0].main.aqi;
+                var thisRiskAssessment = aqiRiskAssessment(thisAQI);
                 if (isCurrent) {
-                    currentAQI.innerHTML = "<div>Current Air Quality Index:    " + thisData.list[0].main.aqi + "</div>";
+                    currentAQI.className = thisRiskAssessment;
+                    currentAQI.innerHTML = "<div>Current Air Quality Index:    " + thisAQI + "</div>";
+
                 } else {
-                    getPollution(thisData);
+                    getPollution(thisData, thisRiskAssessment);
                 }
             });
         } else {
@@ -119,5 +125,14 @@ var getCityName = function(lat, lng) {
         }
     });
 };
+var aqiRiskAssessment = function(aqiEntry) {
+    var riskClass = "";
+    if (aqiEntry <= 100) {
+        riskClass = "low-risk";
+    } else if (aqiEntry <= 200) {
+        riskClass = "medium-risk";
+    } else { riskClass = "high-risk"; }
+    return riskClass;
+}
 
 getCurrentInfo();
