@@ -1,6 +1,9 @@
 document.cookie = 'cookie1=value1; SameSite=Lax';
 document.cookie = 'cookie2=value2; SameSite=None; Secure';
 
+// Source for Risk Assessment: https://www.airnow.gov/aqi/aqi-basics/
+// "low-risk", "medium-risk", or "high-risk"
+
 var currentAQI = document.getElementById("current-air-quality");
 var currentWeather = document.getElementById("current-weather");
 var currentLocation = document.getElementById("current-location");
@@ -8,7 +11,6 @@ var currentDate = document.getElementById("current-date");
 var pollutionData = document.getElementById("searched-aqi-data-summary");
 var aqiDetail = document.getElementById("searched-aqi-detail");
 var searchedWeather = document.getElementById("searched-weather-summary");
-
 
 var getCurrentInfo = function() {
     var lat;
@@ -26,8 +28,7 @@ var getCurrentInfo = function() {
                 currentDate.innerHTML = moment().format('L');
                 var isCurrent = true;
                 getWeather(currentCityName, isCurrent);
-                var isCurrentBoolean = true;
-                searchAQIResult(lat, lng, isCurrentBoolean);
+                searchAQIResult(lat, lng, isCurrent);
 
             });
         } else {
@@ -62,9 +63,10 @@ var getWeather = function(cityName, isCurrent) {
     });
 
 };
-var getPollution = function(dataResult) {
+var getPollution = function(dataResult, risk) {
     pollutionData.innerHTML = "<div class='aqi-searched'>Air Quality Index: " +
         dataResult.list[0].main.aqi + "</div>";
+    aqiDetail.className = risk;
     aqiDetail.innerHTML = "<div><div>Carbon Monoxide: " + dataResult.list[0].components.co +
         "<h6>μg/m3</h6></div><div>Ammonia: " + dataResult.list[0].components.nh3 + "<h6>μg/m3</h6></div>" +
         "<div>Nitrogen Monoxide: " + dataResult.list[0].components.no + "<h6>μg/m3</h6></div>" +
@@ -79,17 +81,20 @@ var getPollution = function(dataResult) {
 var searchAQIResult = function(lat, lng, isCurrent) {
     getCityName(lat, lng);
 
-    var url = "http://api.openweathermap.org/data/2.5/air_pollution?lat=" + lat + "&lon=" + lng + "&appid=3812ea6836536b0581712ffd66f54fa5&units=imperial";
+    var url = "https://api.openweathermap.org/data/2.5/air_pollution?lat=" + lat + "&lon=" + lng + "&appid=3812ea6836536b0581712ffd66f54fa5&units=imperial";
 
     fetch(url).then(function(response) {
 
         if (response.ok) {
             response.json().then(function(thisData) {
-                console.log(thisData);
+                var thisAQI = thisData.list[0].main.aqi;
+                var thisRiskAssessment = aqiRiskAssessment(thisAQI);
                 if (isCurrent) {
-                    currentAQI.innerHTML = "<div>Current Air Quality Index:    " + thisData.list[0].main.aqi + "</div>";
+                    currentAQI.className = thisRiskAssessment;
+                    currentAQI.innerHTML = "<div>Current Air Quality Index:    " + thisAQI + "</div>";
+
                 } else {
-                    getPollution(thisData);
+                    getPollution(thisData, thisRiskAssessment);
                 }
             });
         } else {
@@ -120,5 +125,14 @@ var getCityName = function(lat, lng) {
         }
     });
 };
+var aqiRiskAssessment = function(aqiEntry) {
+    var riskClass = "";
+    if (aqiEntry <= 100) {
+        riskClass = "low-risk";
+    } else if (aqiEntry <= 200) {
+        riskClass = "medium-risk";
+    } else { riskClass = "high-risk"; }
+    return riskClass;
+}
 
 getCurrentInfo();
