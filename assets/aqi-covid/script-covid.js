@@ -25,7 +25,7 @@ var getCovidData = function(fips) {
                 var currentRiskFactor = dataResult.riskLevels.overall;
                 var currentNewCases = dataResult.actuals.newCases;
                 var percentage = Math.floor((currentCases / population) * 100);
-                covidData.innerHTML = "<div id='cases-population'>Number of Cases/Population: " + percentage + "%<br>" + currentCases + " cases out of " + population + "people</div><div id='fatalities'>Total Fatalities: " + currentDeaths + "</div><div id='risk-level'>Overall Covid Risk Rating: " + currentRiskFactor + "</div>" + "</div><div id='new-cases'>Daily New Cases: " + currentNewCases + " per 100k population</div>";
+                covidData.innerHTML = "<div id='cases-population'>Number of Cases/Population: " + percentage + "%<br>" + currentCases + " cases out of " + population + " people</div><div id='fatalities'>Total Fatalities: " + currentDeaths + "</div><div id='risk-level'>Overall Covid Risk Rating: " + currentRiskFactor + "</div>" + "</div><div id='new-cases'>Daily New Cases: " + currentNewCases + " per 100k population</div>";
                 riskCasesPopulation(percentage);
                 riskFatality(currentDeaths, population);
                 riskFactor(currentRiskFactor);
