@@ -1,8 +1,9 @@
+// Using multiple API's, and so I found this code helped with some errors
 document.cookie = 'cookie1=value1; SameSite=Lax';
 document.cookie = 'cookie2=value2; SameSite=None; Secure';
 
 // Source for Risk Assessment: https://www.airnow.gov/aqi/aqi-basics/
-// "low-risk", "medium-risk", or "high-risk"
+// Color coded ratings of "low-risk", "medium-risk", or "high-risk"
 
 var currentAQI = document.getElementById("current-air-quality");
 var currentWeather = document.getElementById("current-weather");
@@ -13,6 +14,8 @@ var aqiDetail = document.getElementById("searched-aqi-detail");
 var searchedWeather = document.getElementById("searched-weather-summary");
 var searchedLocation = document.getElementById("searched-location");
 
+
+// This function get's info about the user's current location
 var getCurrentInfo = function() {
     var lat;
     var lng;
@@ -21,7 +24,7 @@ var getCurrentInfo = function() {
     fetch(urlIP).then(function(response) {
         if (response.ok) {
             response.json().then(function(results) {
-                console.log(results);
+
                 lat = results.latitude;
                 lng = results.longitude;
                 var currentCityName = results.city + ", " + results.region_name;
@@ -38,6 +41,7 @@ var getCurrentInfo = function() {
     });
 
 };
+// This function will get the weathe for a city name
 
 var getWeather = function(cityName, isCurrent) {
     var selection;
@@ -54,7 +58,7 @@ var getWeather = function(cityName, isCurrent) {
         if (response.ok) {
             response.json().then(function(thisData) {
                 selection.innerHTML = "Temperature: " + thisData.current.temp_f + "&#8457 - " + thisData.current.condition.text;
-                console.log(thisData);
+
 
             });
         } else {
@@ -64,6 +68,9 @@ var getWeather = function(cityName, isCurrent) {
     });
 
 };
+
+// This function gets air and pollustion data about result from the API
+
 var getPollution = function(dataResult, risk) {
     pollutionData.innerHTML = "<div>Air Quality Index: " +
         dataResult.list[0].main.aqi + "</div>";
@@ -80,6 +87,8 @@ var getPollution = function(dataResult, risk) {
         "<div>Sulphur Dioxide: " + dataResult.list[0].components.so2 + " " + units + "</div></div>";
 
 };
+
+// Processes a search input from a user to find the data to populate the result container
 
 var searchAQIResult = function(lat, lng, isCurrent) {
     getCityName(lat, lng);
@@ -107,6 +116,8 @@ var searchAQIResult = function(lat, lng, isCurrent) {
     });
 
 };
+
+// Gets information about a place when given latitude and longitude coordinates
 var getCityName = function(lat, lng) {
 
     var apiUrl = "https://api.opencagedata.com/geocode/v1/json?q=" + lat +
@@ -116,7 +127,7 @@ var getCityName = function(lat, lng) {
 
         if (response.ok) {
             response.json().then(function(data) {
-                console.log(data);
+
                 var cityName = data.results[0].components.city + ", " + data.results[0].components.state;
                 var isCurrent = false;
                 getWeather(cityName, isCurrent);
@@ -128,6 +139,8 @@ var getCityName = function(lat, lng) {
         }
     });
 };
+
+// Determines the risk factor of an AQI for the color coding aspect
 var aqiRiskAssessment = function(aqiEntry) {
     var riskClass = "";
     if (aqiEntry <= 100) {
@@ -139,3 +152,4 @@ var aqiRiskAssessment = function(aqiEntry) {
 }
 
 getCurrentInfo();
+// Call the function to load the user's location data when the page loads
