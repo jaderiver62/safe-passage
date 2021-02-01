@@ -8,21 +8,20 @@ body {
     font-weight: bold;
 }
 
+
 /* color index for risk*/
+
 .low-risk {
     background-color: rgb(115, 165, 115);
     color: white;
-
 }
 
 .medium-risk {
     background-color: rgb(231, 221, 84);
     color: white;
-
 }
 
 .high-risk {
     background-color: rgb(177, 100, 100);
     color: white;
-
 }
