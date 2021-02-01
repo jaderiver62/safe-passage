@@ -3,29 +3,29 @@ document.cookie = 'cookie1=value1; SameSite=Lax';
 document.cookie = 'cookie2=value2; SameSite=None; Secure';
 
 // API KEY: https://api.covidactnow.org/v2/county/{{FIPS}}.json?apiKey=445bc14aef9b4a7798f42f69d834218d
-
+// This website has excellent data sources and was great to work with
 
 var covidData = document.getElementById("searched-corona-data");
 // Function getCovidData(fips) is meant to be called by script-search.js to get Covid Data from a FIPS 5-digit code parameter
 var getCovidData = function(fips) {
 
 
-    // Covid Risk Assessment Guide by Harvard: https://globalepidemics.org/wp-content/uploads/2020/09/key_metrics_and_indicators_v5-1.pdf
+    // Risk factors determined using Covid Risk Assessment Guide by Harvard: https://globalepidemics.org/wp-content/uploads/2020/09/key_metrics_and_indicators_v5-1.pdf
 
     var apiUrl = "https://api.covidactnow.org/v2/county/" + fips + ".json?apiKey=445bc14aef9b4a7798f42f69d834218d";
     fetch(apiUrl).then(function(response) {
         if (response.ok) {
             response.json().then(function(dataResult) {
-                console.log(dataResult);
-                console.log(dataResult.metrics.caseDensity);
                 var population = dataResult.population;
                 var currentCases = dataResult.actuals.cases;
-                //The number of cases per 100k population calculated using a 7-day rolling average.
+                // The number of cases per 100k population calculated using a 7-day rolling average.
                 var currentDeaths = dataResult.actuals.deaths;
                 var currentRiskFactor = dataResult.riskLevels.overall;
                 var currentNewCases = dataResult.actuals.newCases;
                 var percentage = Math.floor((currentCases / population) * 100);
-                covidData.innerHTML = "<div id='cases-population'>Number of Cases/Population: " + percentage + "%<br>" + currentCases + " cases out of " + population + "people</div><div id='fatalities'>Total Fatalities: " + currentDeaths + "</div><div id='risk-level'>Overall Covid Risk Rating: " + currentRiskFactor + "</div>" + "</div><div id='new-cases'>Daily New Cases: " + currentNewCases + " per 100k population</div>";
+                // Gets a percentage - but also shows the figures for some context
+                covidData.innerHTML = "<div id='cases-population'>Number of Cases/Population: " + percentage + "%<br>" + currentCases + " cases out of " + population + " people</div><div id='fatalities'>Total Fatalities: " + currentDeaths + "</div><div id='risk-level'>Overall Covid Risk Rating: " + currentRiskFactor + "</div>" + "</div><div id='new-cases'>Daily New Cases: " + currentNewCases + " per 100k population</div>";
+                // These functions I am calling determine the risk level of a locations data
                 riskCasesPopulation(percentage);
                 riskFatality(currentDeaths, population);
                 riskFactor(currentRiskFactor);
@@ -38,12 +38,14 @@ var getCovidData = function(fips) {
     });
 
 };
+
+// Determine the risk factor of each item
 var riskCasesPopulation = function(percentage) {
     var casesEl = document.getElementById("cases-population");
 
-    if (percentage <= 33) {
+    if (percentage <= 8) {
         casesEl.className = "low-risk";
-    } else if (percentage <= 66) {
+    } else if (percentage <= 25) {
         casesEl.className = "medium-risk";
     } else {
         casesEl.className = "high-risk";
@@ -52,9 +54,9 @@ var riskCasesPopulation = function(percentage) {
 var riskFatality = function(deaths, population) {
     var fatalityEl = document.getElementById("fatalities");
     var percentage = Math.floor((deaths / population) * 100);
-    if (percentage <= 33) {
+    if (percentage <= 8) {
         fatalityEl.className = "low-risk";
-    } else if (percentage <= 66) {
+    } else if (percentage <= 25) {
         fatalityEl.className = "medium-risk";
     } else {
         fatalityEl.className = "high-risk";
