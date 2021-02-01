@@ -5,7 +5,7 @@ With over 25 million cases of COVID-19 in the United States, deaths mounting and
 
 Users will find current COVID-19 data for their current location and intended destinations. Also included in the data set is information about: weather, air quality, and demographics, which were identified as factors that could affect risk levels. 
 
-![Website](assets/css/screenshot (3).png)
+![Website](https://github.com/jaderiver62/safe-passage/blob/main/assets/css/screenshot%20(3).png?raw=true)
 
 ![Saved History](assets/css/history.png) 
 
