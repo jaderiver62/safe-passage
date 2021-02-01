@@ -5,14 +5,24 @@ header {
     background-size: cover;
 }
 
+body {
+    font-weight: bold;
+}
+
 .low-risk {
-    background-color: rgb(96, 122, 96)
+    background-color: rgb(115, 165, 115);
+    color: white;
+
 }
 
 .medium-risk {
-    background-color: rgb(218, 218, 153);
+    background-color: rgb(231, 221, 84);
+    color: white;
+
 }
 
 .high-risk {
-    background-color: rgb(131, 86, 86);
+    background-color: rgb(177, 100, 100);
+    color: white;
+
 }
